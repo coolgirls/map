@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='bg'>
+   <image src='../../images/bg.png'></image>
+  </view>
+  <view class="items">
+     <view class='list'>
+        <view class="list-item" bindtap='bindDesc'>
+            <image src='../../images/icon3.png'></image>
+            <text>三资简介</text>
+        </view>
+        <view class="list-item" bindtap="bindStatus" data-type="招租">
+            <image src='../../images/icon2.png'></image>
+            <text>招租信息</text>
+        </view>
+     </view>
+     <view class='list'>
+         <view class="list-item" bindtap="bindStatus" data-type="厂房">
+            <image src='../../images/icon4.png'></image>
+            <text>厂房租赁</text>
+        </view>
+        <view class="list-item" bindtap="bindStatus" data-type="土地">
+            <image src='../../images/icon1.png'></image>
+            <text>土地租赁</text>
+        </view>
+     </view>
+  </view>
+</view>

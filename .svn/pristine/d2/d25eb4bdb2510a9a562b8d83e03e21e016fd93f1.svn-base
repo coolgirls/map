@@ -1,0 +1,4 @@
+<!--pages/desc/desc.wxml-->
+<view class="desc">
+  <image src="http://110.fonery.cn{{imgs}}" mode='scaleToFill' class="descPic"></image>
+</view>

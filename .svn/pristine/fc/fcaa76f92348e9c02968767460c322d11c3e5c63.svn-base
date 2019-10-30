@@ -1,0 +1,320 @@
+//index.js
+//获取应用实例
+const app = getApp()
+import gcoord from '../../gcoord.js'
+
+var points = [{ longitude: '121.239913', latitude: '31.584836' },
+  { longitude: '121.241026', latitude: '31.581421' },
+  { longitude: '121.240667', latitude: '31.581329' },
+  { longitude: '121.240991', latitude: '31.580529' },
+  { longitude: '121.241709', latitude: '31.580652' },
+  { longitude: '121.241925', latitude: '31.579914' },
+  { longitude: '121.24117', latitude: '31.579637' },
+  { longitude: '121.241925', latitude: '31.576469' },
+  { longitude: '121.242643', latitude: '31.576469' },
+  { longitude: '121.241997', latitude: '31.573884' },
+  { longitude: '121.242068', latitude: '31.573761' },
+  { longitude: '121.241925', latitude: '31.573085' },
+  { longitude: '121.241494', latitude: '31.571854' },
+  { longitude: '121.241422', latitude: '31.571485' },
+  { longitude: '121.242212', latitude: '31.570685' },
+  { longitude: '121.241565', latitude: '31.569823' },
+  { longitude: '121.241925', latitude: '31.568962' },
+  { longitude: '121.241637', latitude: '31.567178' },
+  { longitude: '121.241494', latitude: '31.565701' },
+  { longitude: '121.234092', latitude: '31.565147' },
+  { longitude: '121.235421', latitude: '31.558839' },
+  { longitude: '121.222162', latitude: '31.557639' },
+  { longitude: '121.221839', latitude: '31.558655' },
+  { longitude: '121.220725', latitude: '31.558193' },
+  { longitude: '121.220689', latitude: '31.558009' },
+  { longitude: '121.219826', latitude: '31.557916' },
+  { longitude: '121.219252', latitude: '31.558809' },
+  { longitude: '121.217419', latitude: '31.55807' },
+  { longitude: '121.216521', latitude: '31.55927' },
+  { longitude: '121.214688', latitude: '31.558501' },
+  { longitude: '121.216413', latitude: '31.559301' },
+  { longitude: '121.213251', latitude: '31.564409' },
+  { longitude: '121.205849', latitude: '31.563732' },
+  { longitude: '121.20646', latitude: '31.56327' },
+  { longitude: '121.207753', latitude: '31.563332' },
+  { longitude: '121.208041', latitude: '31.562224' },
+  { longitude: '121.204627', latitude: '31.561855' },
+  { longitude: '121.204771', latitude: '31.56047' },
+  { longitude: '121.20283', latitude: '31.560624' },
+  { longitude: '121.202543', latitude: '31.561978' },
+  { longitude: '121.20107', latitude: '31.561824' },
+  { longitude: '121.200962', latitude: '31.56207' },
+  { longitude: '121.200675', latitude: '31.562224' },
+  { longitude: '121.200495', latitude: '31.563209' },
+  { longitude: '121.200567', latitude: '31.562501' },
+  { longitude: '121.199058', latitude: '31.561947' },
+  { longitude: '121.194746', latitude: '31.561455' },
+  { longitude: '121.1955', latitude: '31.559855' },
+  { longitude: '121.188781', latitude: '31.55807' },
+  { longitude: '121.188637', latitude: '31.558316' },
+  { longitude: '121.18817', latitude: '31.558439' },
+  { longitude: '121.187775', latitude: '31.559301' },
+  { longitude: '121.182493', latitude: '31.557639' },
+  { longitude: '121.18314', latitude: '31.55487' },
+  { longitude: '121.179834', latitude: '31.553824' },
+  { longitude: '121.178289', latitude: '31.555609' },
+  { longitude: '121.176456', latitude: '31.554501' },
+  { longitude: '121.175845', latitude: '31.553085' },
+  { longitude: '121.174911', latitude: '31.553516' },
+  { longitude: '121.17466', latitude: '31.553055' },
+  { longitude: '121.174372', latitude: '31.553362' },
+  { longitude: '121.171066', latitude: '31.551885' },
+  { longitude: '121.170743', latitude: '31.552624' },
+  { longitude: '121.170527', latitude: '31.553332' },
+  { longitude: '121.17006', latitude: '31.554347' },
+  { longitude: '121.17024', latitude: '31.554562' },
+  { longitude: '121.169917', latitude: '31.555209' },
+  { longitude: '121.169953', latitude: '31.555824' },
+  { longitude: '121.17006', latitude: '31.556039' },
+  { longitude: '121.17103', latitude: '31.556286' },
+  { longitude: '121.172037', latitude: '31.556962' },
+  { longitude: '121.172396', latitude: '31.557732' },
+  { longitude: '121.172971', latitude: '31.558409' },
+  { longitude: '121.174767', latitude: '31.559947' },
+  { longitude: '121.175953', latitude: '31.561116' },
+  { longitude: '121.176025', latitude: '31.561732' },
+  { longitude: '121.178325', latitude: '31.563301' },
+  { longitude: '121.179654', latitude: '31.564439' },
+  { longitude: '121.180014', latitude: '31.56567' },
+  { longitude: '121.180337', latitude: '31.566655' },
+  { longitude: '121.185727', latitude: '31.570531' },
+  { longitude: '121.185403', latitude: '31.571823' },
+  { longitude: '121.186589', latitude: '31.572838' },
+  { longitude: '121.186913', latitude: '31.573054' },
+  { longitude: '121.192015', latitude: '31.574223' },
+  { longitude: '121.194315', latitude: '31.574346' },
+  { longitude: '121.200603', latitude: '31.575915' },
+  { longitude: '121.20107', latitude: '31.574777' },
+  { longitude: '121.21361', latitude: '31.579268' },
+  { longitude: '121.213682', latitude: '31.579945' },
+  { longitude: '121.214005', latitude: '31.580775' },
+  { longitude: '121.214796', latitude: '31.580868' },
+  { longitude: '121.21573', latitude: '31.580191' },
+  { longitude: '121.216341', latitude: '31.579883' },
+  { longitude: '121.218569', latitude: '31.581022' },
+  { longitude: '121.231828', latitude: '31.583083' }]
+
+Page({
+  data: {
+    longitude: "",
+    latitude: "",
+    markers:[],
+    polyline: [],
+  },
+  onLoad: function (options) {
+   var that = this;
+    var result = gcoord.transform(
+      [121.205848, 31.569739],    // 经纬度坐标
+      gcoord.BD09,               // 当前坐标系
+      gcoord.GCJ02               // 目标坐标系
+    );
+
+   that.setData({
+     longitude: result[0],
+     latitude: result[1]
+   })
+
+
+    var types = decodeURIComponent(JSON.stringify(options.types));
+    types = types.replace(/\"/g, ""); 
+    console.log('types',types);
+    if(types=="厂房"){
+      that.getFactory();
+    }else if(types=="土地"){
+      that.getLand();
+    } else if(types=="招租"){
+      that.getLet();
+    }
+  },
+ 
+  //厂房
+  getFactory() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListCF'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('厂房', res);
+        var result = res.data;
+        var arrs = [];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租客姓名：${result[i].TenantName}
+联系电话：${result[i].TenantPhone}
+租赁状态：${result[i].LeaseState}`;
+
+          var x = Number(result[i].LocationX);
+          var y = Number(result[i].LocationY)
+
+          var results = gcoord.transform(
+            [x,y],                     // 经纬度坐标
+            gcoord.BD09,               // 当前坐标系
+            gcoord.GCJ02               // 目标坐标系
+          );
+
+          arrs.push({
+            latitude: results[0],
+            longitude: results[1],
+            iconPath: '../../images/map.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+        }
+
+      
+
+        
+      
+        var polyline = [{
+          points: polyArr,
+          color: "#FF0000DD",
+          width: 2,
+          dottedLine: true
+        }];
+
+        
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs,
+          polyline: polyline
+        })
+        
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+
+  //土地
+  getLand() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListTD'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('土地', res);
+        var result = res.data;
+        var arrs = [];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租客姓名：${result[i].TenantName}
+联系电话：${result[i].TenantPhone}
+租赁状态：${result[i].LeaseState}`;
+
+          var x = Number(result[i].LocationX);
+          var y = Number(result[i].LocationY)
+
+          var results = gcoord.transform(
+            [x, y],                     // 经纬度坐标
+            gcoord.BD09,               // 当前坐标系
+            gcoord.GCJ02               // 目标坐标系
+          );
+
+          arrs.push({
+            latitude: results[0],
+            longitude: results[1],
+            iconPath: '../../images/map2.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+        }
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+
+  //招租
+  getLet() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListZZ'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('招租', res);
+        var result = res.data;
+        var arrs = [];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租赁状态：${result[i].LeaseState}(${result[i].RentalState})`;
+
+          var x = Number(result[i].LocationX);
+          var y = Number(result[i].LocationY)
+
+          var results = gcoord.transform(
+            [x, y],                     // 经纬度坐标
+            gcoord.BD09,               // 当前坐标系
+            gcoord.GCJ02               // 目标坐标系
+          );
+
+          arrs.push({
+            latitude: results[0],
+            longitude: results[1],
+            iconPath: '../../images/map1.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+        }
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+ 
+})

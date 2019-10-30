@@ -1,0 +1,261 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+Page({
+  data: {
+    longitude: "121.205848",
+    latitude: "31.569739",
+    markers:[],
+    polygons: [],
+  },
+  onLoad: function (options) {
+   var that = this;
+    console.log('options', options);
+    var types = decodeURIComponent(JSON.stringify(options.types));
+    types = types.replace(/\"/g, ""); 
+    console.log('types',types);
+    if(types=="厂房"){
+      that.getFactory();
+    }else if(types=="土地"){
+      that.getLand();
+    } else if(types=="招租"){
+      that.getLet();
+    }
+  },
+ 
+  //厂房
+  getFactory() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListCF'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('厂房', res);
+        var result = res.data;
+        var arrs = [], points=[];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租客姓名：${result[i].TenantName}
+联系电话：${result[i].TenantPhone}
+租赁状态：${result[i].LeaseState}`;
+          arrs.push({
+            latitude: result[i].LocationX,
+            longitude: result[i].LocationY,
+            iconPath: '../../images/map.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+         points.push({
+            latitude: result[i].LocationX,
+            longitude: result[i].LocationY
+          })
+        }
+        var polygons=[{
+          points: points,
+          fillColor: "#FF0000AA",
+          strokeColor: "#000000DD",
+          strokeWidth: 5,
+          zIndex: 10
+        }];
+        console.log('polygons', polygons);
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs,
+          polygons: polygons
+        })
+        
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+
+  //土地
+  getLand() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListTD'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('土地', res);
+        var result = res.data;
+        var arrs = [];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租客姓名：${result[i].TenantName}
+联系电话：${result[i].TenantPhone}
+租赁状态：${result[i].LeaseState}`;
+          arrs.push({
+            latitude: result[i].LocationX,
+            longitude: result[i].LocationY,
+            iconPath: '../../images/map2.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+        }
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+
+  //招租
+  getLet() {
+    var that = this;
+    wx.request({
+      url: app.createUrl('/Member/GetwListZZ'),
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log('招租', res);
+        var result = res.data;
+        var arrs = [];
+        for (var i = 0; i < result.length; i++) {
+          var content = `名称：${result[i].LeaseName}
+具体地址：${result[i].Address}
+面积：${result[i].Area}
+租赁状态：${result[i].LeaseState}(${result[i].RentalState})`;
+          arrs.push({
+            latitude: result[i].LocationX,
+            longitude: result[i].LocationY,
+            iconPath: '../../images/map1.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: content,
+              padding: 10,
+              display: 'BYCLICK',
+              textAlign: 'left'
+            }
+          })
+        }
+        console.log('arrs', arrs);
+        that.setData({
+          markers: arrs
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '网络异常',
+        });
+      }
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+//   getListAll(){
+//     var that=this;
+//     wx.request({
+//       url: app.createUrl('/Member/GetListAll'),
+//       method: 'GET',
+//       header: {
+//         'Content-Type': 'application/json'
+//       },
+//       success: function (res) {
+//         console.log('全部', res);
+//         var result=res.data;
+//         var arrs=[];
+//         for (var i = 0; i < result.length;i++){
+//           var iconPath="";
+//           var content="";
+//           if (result[i].LeaseState=="未租赁"){
+//             iconPath = "../../images/map.png";
+//             if (result[i].RentalState=="停租"){
+//               content = `名称：${result[i].LeaseName}
+// 具体地址：${result[i].Address}
+// 面积：${result[i].Area}
+// 租赁状态：${result[i].LeaseState}
+// 停租原因：${result[i].Cause}`;
+//             }else{
+//               content = `名称：${result[i].LeaseName}
+// 具体地址：${result[i].Address}
+// 面积：${result[i].Area}
+// 租赁状态：${result[i].LeaseState}`;
+//             }
+//           } else if (result[i].LeaseState == "已租赁"){
+//             iconPath = "../../images/map1.png";
+//             content = `名称：${result[i].LeaseName}
+// 具体地址：${result[i].Address}
+// 面积：${result[i].Area}
+// 租客姓名：${result[i].TenantName}
+// 联系电话：${result[i].TenantPhone}
+// 租赁状态：${result[i].LeaseState}`;
+//           }
+//           arrs.push({
+//             latitude: result[i].LocationX,
+//             longitude: result[i].LocationY,
+//             iconPath: iconPath,
+//             width: 30,
+//             height: 30,
+//             callout: {
+//               content: content,
+//               padding: 10,
+//               display: 'BYCLICK',
+//               textAlign: 'left'
+//             }
+//           })
+//         }
+//         console.log('arrs',arrs);
+
+//         that.setData({
+//           markers:arrs
+//         })
+//       },
+//       fail: function (res) {
+//         wx.showToast({
+//           title: '网络异常',
+//         });
+//       }
+//     });
+//   }
+ 
+})

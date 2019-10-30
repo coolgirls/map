@@ -1,0 +1,52 @@
+/**index.wxss**/
+page{
+  width: 100%;
+  height: 100%;
+}
+.bg{
+  width: 100%;
+  height: 100%;
+  background-color: #eef9ff;
+}
+
+.bg image{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.2);
+}
+
+.items{
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top:53%;
+  margin-left: -250rpx;
+  margin-top: -250rpx;
+}
+
+.list{
+  display: flex;
+  width: 500rpx;
+}
+
+.list-item{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-bottom: 60rpx;
+}
+
+.list-item:first-child{
+  margin-right: 100rpx;
+}
+
+.list:last-child .list-item{
+  margin-bottom: 0;
+}
+
+.list-item image{
+  width: 200rpx;
+  height:200rpx;
+  margin-bottom: 20rpx;
+}
